@@ -1,0 +1,217 @@
+[
+  {
+    "nome": "Geladeira",
+    "potencia_min": 150,
+    "potencia_max": 250
+  },
+  {
+    "nome": "Ar condicionado",
+    "potencia_min": 700,
+    "potencia_max": 1500
+  },
+  {
+    "nome": "Forno elétrico",
+    "potencia_min": 1000,
+    "potencia_max": 2500
+  },
+  {
+    "nome": "Máquina de lavar",
+    "potencia_min": 500,
+    "potencia_max": 1000
+  },
+  {
+    "nome": "Secadora de roupa",
+    "potencia_min": 1500,
+    "potencia_max": 5000
+  },
+  {
+    "nome": "Microondas",
+    "potencia_min": 600,
+    "potencia_max": 1500
+  },
+  {
+    "nome": "Liquidificador",
+    "potencia_min": 300,
+    "potencia_max": 700
+  },
+  {
+    "nome": "Ferro de passar",
+    "potencia_min": 1000,
+    "potencia_max": 2000
+  },
+  {
+    "nome": "Aspirador de pó",
+    "potencia_min": 600,
+    "potencia_max": 1500
+  },
+  {
+    "nome": "Televisão",
+    "potencia_min": 50,
+    "potencia_max": 400
+  },
+  {
+    "nome": "Lâmpada",
+    "potencia_min": 5,
+    "potencia_max": 100
+  },
+  {
+    "nome": "Aquecedor elétrico",
+    "potencia_min": 1000,
+    "potencia_max": 2000
+  },
+  {
+    "nome": "Sanduicheira",
+    "potencia_min": 700,
+    "potencia_max": 1000
+  },
+  {
+    "nome": "Panela elétrica de arroz",
+    "potencia_min": 300,
+    "potencia_max": 500
+  },
+  {
+    "nome": "Batedeira",
+    "potencia_min": 200,
+    "potencia_max": 400
+  },
+  {
+    "nome": "Chaleira elétrica",
+    "potencia_min": 1000,
+    "potencia_max": 2000
+  },
+  {
+    "nome": "Cafeteira elétrica",
+    "potencia_min": 600,
+    "potencia_max": 1200
+  },
+  {
+    "nome": "Torradeira",
+    "potencia_min": 600,
+    "potencia_max": 1500
+  },
+  {
+    "nome": "Freezer",
+    "potencia_min": 150,
+    "potencia_max": 250
+  },
+  {
+    "nome": "Máquina de lavar louça",
+    "potencia_min": 1200,
+    "potencia_max": 2400
+  },
+  {
+    "nome": "Computador de mesa",
+    "potencia_min": 50,
+    "potencia_max": 300
+  },
+  {
+    "nome": "Notebook",
+    "potencia_min": 20,
+    "potencia_max": 100
+  },
+  {
+    "nome": "Impressora",
+    "potencia_min": 20,
+    "potencia_max": 100
+  },
+  {
+    "nome": "Roteador",
+    "potencia_min": 5,
+    "potencia_max": 15
+  },
+  {
+    "nome": "Modem",
+    "potencia_min": 5,
+    "potencia_max": 15
+  },
+  {
+    "nome": "Ventilador de mesa",
+    "potencia_min": 20,
+    "potencia_max": 100
+  },
+  {
+    "nome": "Ventilador de teto",
+    "potencia_min": 50,
+    "potencia_max": 100
+  },
+  {
+    "nome": "Chapinha",
+    "potencia_min": 20,
+    "potencia_max": 60
+  },
+  {
+    "nome": "Secador de cabelo",
+    "potencia_min": 1000,
+    "potencia_max": 2000
+  },
+  {
+    "nome": "Chuveiro elétrico",
+    "potencia_min": 3000,
+    "potencia_max": 5500
+  },
+  {
+    "nome": "Aparelho de som",
+    "potencia_min": 50,
+    "potencia_max": 500
+  },
+  {
+    "nome": "DVD player",
+    "potencia_min": 10,
+    "potencia_max": 20
+  },
+  {
+    "nome": "Decodificador de TV a cabo",
+    "potencia_min": 10,
+    "potencia_max": 30
+  },
+  {
+    "nome": "Console de videogame",
+    "potencia_min": 50,
+    "potencia_max": 200
+  },
+  {
+    "nome": "Projetor de vídeo",
+    "potencia_min": 100,
+    "potencia_max": 300
+  },
+  {
+    "nome": "Máquina de costura",
+    "potencia_min": 50,
+    "potencia_max": 100
+  },
+  {
+    "nome": "Umidificador de ar",
+    "potencia_min": 20,
+    "potencia_max": 150
+  },
+  {
+    "nome": "Frigobar",
+    "potencia_min": 50,
+    "potencia_max": 150
+  },
+  {
+    "nome": "Barbeador elétrico",
+    "potencia_min": 5,
+    "potencia_max": 15
+  },
+  {
+    "nome": "Luminária de mesa",
+    "potencia_min": 5,
+    "potencia_max": 50
+  },
+  {
+    "nome": "Balança digital",
+    "potencia_min": 5,
+    "potencia_max": 10
+  },
+  {
+    "nome": "Espremedor de frutas",
+    "potencia_min": 50,
+    "potencia_max": 100
+  },
+  {
+    "nome": "Panela elétrica de pressão",
+    "potencia_min": 900,
+    "potencia_max": 1500
+  }
+]
