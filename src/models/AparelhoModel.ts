@@ -1,8 +1,6 @@
-// Interface para dispositivos elétricos
 export interface AparelhoModel {
+  id: number;
   nome: string;
-  tipo: string;
-  potencia_min: number;
-  potencia_max: number;
-  energiaConsumida?: number;
-  }
+  consumo: number;
+  leituras: number[]; 
+}
