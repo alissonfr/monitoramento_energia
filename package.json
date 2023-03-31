@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "node build/index.js",
-    "dev": "ts-node-dev --ignore-watch node_modules src/index.ts"
+    "start:dev": "ts-node-dev --ignore-watch node_modules src/index.ts"
   },
   "keywords": [],
   "author": "",
