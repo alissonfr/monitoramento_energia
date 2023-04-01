@@ -1,4 +1,4 @@
-import { Monitoramento } from "./controller/MonitoramentoController";
+import { Monitoramento } from "./controllers/MonitoramentoController";
 
 // Cria uma instância do monitoramento com 3 aparelhos
 let monitoramento = new Monitoramento(2);
