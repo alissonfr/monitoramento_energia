@@ -41,5 +41,41 @@ export class Monitoramento {
         }
       }
     }
+
+    // MÉTODOS PARA IMPRIMIR OS VALORES LIDOS
+  
+    imprimirAparelhos() {
+      console.log("Lista de aparelhos monitorados:");
+      for (let aparelho of this.aparelhos) {
+        console.log(`- ${aparelho.nome} (ID ${aparelho.id}): ${aparelho.consumo} watts`);
+      }
+      console.log('----------------------------------------------------------------')
+    }
+  
+    imprimirLeituras() {
+      console.log("Lista de leituras para cada aparelho monitorado:");
+      for (let aparelho of this.aparelhos) {
+        console.log(`- ${aparelho.nome} (ID ${aparelho.id}):`);
+        console.log(aparelho.leituras);
+      }
+      console.log('----------------------------------------------------------------')
+    }
+  
+    imprimirConsumoTotal() {
+      console.log("Consumo total de cada aparelho monitorado:");
+      for (let aparelho of this.aparelhos) {
+        console.log(`- ${aparelho.nome} (ID ${aparelho.id}): ${aparelho.calcularConsumoTotal()} watts`);
+      }
+      console.log('----------------------------------------------------------------')
+    }
+  
+    imprimirConsumoTotalGeral() {
+      console.log("Consumo total geral:");
+      let total = 0;
+      for (let aparelho of this.aparelhos) {
+        total += aparelho.calcularConsumoTotal();
+      }
+      console.log(`${total} watts`);
+      console.log('----------------------------------------------------------------')
     }
   }
