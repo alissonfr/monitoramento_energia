@@ -22,5 +22,24 @@ export class Monitoramento {
         const potenciaAleatoria = Math.floor(Math.random() * (eletrodomestico.potencia_max - eletrodomestico.potencia_min + 1)) + eletrodomestico.potencia_min;
         this.aparelhos.push(new Aparelho(i , eletrodomestico.nome, potenciaAleatoria ));
       }
+
+      this.gerarLeituras()
+    }
+  
+    /*
+    Este algoritmo simula a geração de leituras de consumo para cada aparelho monitorado. Ele itera por uma lista de aparelhos e 
+    gera aleatoriamente 10 leituras para cada aparelho, adicionando-as ao atributo "leituras" do aparelho correspondente.
+    A geração de cada leitura é realizada de forma aleatória através da função Math.random(), que gera um número aleatório entre 0 e 1. 
+    Esse número é multiplicado pelo valor do consumo do aparelho e arredondado para baixo com a função Math.floor(), resultando em um valor 
+    inteiro aleatório dentro do intervalo.
+    */
+    gerarLeituras() {
+      for (let aparelho of this.aparelhos) {
+
+        for (let i = 0; i < 10; i++) {
+          aparelho.leituras.push(Math.floor(Math.random() * aparelho.consumo) + 1);
+        }
+      }
+    }
     }
   }
