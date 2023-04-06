@@ -1,9 +1,10 @@
 import data from '../assets/data.json';
+import { AparelhoModel } from '../models/AparelhoModel';
 import { GetAparelhosResponse } from '../models/GetAparelhosResponse';
+import { ordenarCrescente } from '../utils/Ordenadores';
 import { Aparelho } from './AparelhoController';
 
 export class Monitoramento {
-    // aparelhos vai conter todos os aparelhos instanciados
     aparelhos: Aparelho[];
   
     constructor(numAparelhos: number) {
@@ -11,71 +12,83 @@ export class Monitoramento {
   
       // A variável eletrodomesticosData contém o array de objetos JSON simulando um banco de dados externo. 
       const eletrodomesticosData: GetAparelhosResponse[] = data
-  
-      // O loop seleciona objetos aleatórios usando o método Math.random() e o método Math.floor() para gerar um índice aleatório dentro do array. 
-      // Em seguida, a variável eletrodomestico é definida como o objeto correspondente ao índice aleatório. 
-      // Após isso, variável potenciaAleatoria é gerada usando o método Math.random() e o método Math.floor() para gerar um valor aleatório dentro da faixa de potências do objeto
-      // Por fim, utiliza-se o metodo push para colocar os aparelhos instanciados com nome e potencia aleatória no array aparelhos
+      
+      /**
+      * ##### Sobre:
+      * Este escolhe os aparelhos aleatoriamente e os instancia na classe Aparelho
+      * 
+      * ##### Complexidade:
+      * A complexidade desse loop é O(n), onde n é o número de aparelhos, já que ele itera numAparelhos vezes. A razão para isso é que a quantidade de vezes que o 
+      * loop executa é diretamente proporcional ao número de aparelhos que precisam ser criados.
+      */
       for (let i = 1; i <= numAparelhos; i++) {
         const indiceAleatorio = Math.floor(Math.random() * eletrodomesticosData.length);
         const eletrodomestico = eletrodomesticosData[indiceAleatorio];
-        const potenciaAleatoria = Math.floor(Math.random() * (eletrodomestico.potencia_max - eletrodomestico.potencia_min + 1)) + eletrodomestico.potencia_min;
-        this.aparelhos.push(new Aparelho(i , eletrodomestico.nome, potenciaAleatoria ));
+        this.aparelhos.push(new Aparelho(i , eletrodomestico.nome, eletrodomestico.tipo, eletrodomestico.potencia_min, eletrodomestico.potencia_max ))
       }
 
       this.gerarLeituras()
     }
   
-    /*
-    Este algoritmo simula a geração de leituras de consumo para cada aparelho monitorado. Ele itera por uma lista de aparelhos e 
-    gera aleatoriamente 10 leituras para cada aparelho, adicionando-as ao atributo "leituras" do aparelho correspondente.
-    A geração de cada leitura é realizada de forma aleatória através da função Math.random(), que gera um número aleatório entre 0 e 1. 
-    Esse número é multiplicado pelo valor do consumo do aparelho e arredondado para baixo com a função Math.floor(), resultando em um valor 
-    inteiro aleatório dentro do intervalo.
+    /**
+    * ##### Sobre:
+    * Este algoritmo simula a geração de leituras de consumo para cada aparelho monitorado. Ele itera por uma lista de aparelhos e 
+    * gera 10 leituras aleatorias para cada aparelho com uma variação de 10% entre cada leitura
+    * 
+    * ##### Complexidade:
+    * A complexidade deste algoritmo é O(n), onde n é o número de aparelhos na lista. O loop externo executa uma vez para cada aparelho, 
+    * independentemente do tamanho da lista, e o loop interno executa sempre 10 vezes. Portanto, a quantidade total de iterações do loop interno 
+    * é sempre 10 vezes o número de aparelhos. Como a notação big O desconsidera constantes, podemos dizer que a complexidade é O(n).
     */
     gerarLeituras() {
-      for (let aparelho of this.aparelhos) {
-
-        for (let i = 0; i < 10; i++) {
-          aparelho.leituras.push(Math.floor(Math.random() * aparelho.consumo) + 1);
+      for (let i = 0; i < this.aparelhos.length; i++) {
+        const aparelho = this.aparelhos[i]
+        for (let j = 0; j < 10; j++) {
+          const variacao = Math.random() * 0.1 - 0.05; // variação aleatória entre -5% e 5%
+          const consumo = Math.round(Math.random() * (aparelho.potencia_max - aparelho.potencia_min) + aparelho.potencia_min); // número aleatório entre potência mínima e máxima, arredondado para o inteiro mais próximo
+          const consumoVariacao = Math.round(consumo * (1 + variacao)); // consumo  variação de 10%, arredondado para o inteiro mais próximo
+          aparelho.consumo_total += consumoVariacao; // incrementa o consumo total
+          aparelho.leituras.push(consumoVariacao); // adiciona a leitura à lista de leituras do aparelho
         }
       }
     }
-
+    
     // MÉTODOS PARA IMPRIMIR OS VALORES LIDOS
-  
+    
     imprimirAparelhos() {
-      console.log("Lista de aparelhos monitorados:");
-      for (let aparelho of this.aparelhos) {
-        console.log(`- ${aparelho.nome} (ID ${aparelho.id}): ${aparelho.consumo} watts`);
+      console.log("(d.1) Lista de aparelhos monitorados:");
+      console.table(this.aparelhos, ['id', 'nome', 'tipo', 'consumo_total']);
+      console.log('----------------------------------------------------------------')
+    }
+
+    // Função para ordenar e exibir os aparelhos por número de leituras crescente
+    imprimirLeituraAparelhos() {
+      console.log('(d.2) Lista das leituras por aparelho monitorado')
+      for (let i = 0; i < this.aparelhos.length; i++) {
+        const aparelho = this.aparelhos[i]
+        console.log(`(ID ${aparelho.id}) - ${aparelho.nome} - [ ${aparelho.leituras} ]`)
       }
       console.log('----------------------------------------------------------------')
     }
-  
-    imprimirLeituras() {
-      console.log("Lista de leituras para cada aparelho monitorado:");
-      for (let aparelho of this.aparelhos) {
-        console.log(`- ${aparelho.nome} (ID ${aparelho.id}):`);
-        console.log(aparelho.leituras);
-      }
-      console.log('----------------------------------------------------------------')
-    }
-  
-    imprimirConsumoTotal() {
-      console.log("Consumo total de cada aparelho monitorado:");
-      for (let aparelho of this.aparelhos) {
-        console.log(`- ${aparelho.nome} (ID ${aparelho.id}): ${aparelho.calcularConsumoTotal()} watts`);
+    
+    // Função para ordenar e exibir os aparelhos por número de leituras crescente
+    imprimirLeituraAparelhosCrescente() {
+      const aparelhosOrdenados = ordenarCrescente(this.aparelhos);
+      console.log('(d.3) Lista das leituras por aparelho monitorado ordenados por ordem crescente')
+      for (let i = 0; i < aparelhosOrdenados.length; i++) {
+        const aparelho = aparelhosOrdenados[i]
+        console.log(`(ID ${aparelho.id}) - ${aparelho.nome} - [ ${aparelho.leituras} ]`)
       }
       console.log('----------------------------------------------------------------')
     }
   
     imprimirConsumoTotalGeral() {
-      console.log("Consumo total geral:");
       let total = 0;
-      for (let aparelho of this.aparelhos) {
+      for (let i = 0; i < this.aparelhos.length; i++) {
+        const aparelho = this.aparelhos[i]
         total += aparelho.calcularConsumoTotal();
       }
-      console.log(`${total} watts`);
+      console.log(`Consumo total de todos os aparelhos por 10 horas: ${total} watts`);
       console.log('----------------------------------------------------------------')
     }
   }
