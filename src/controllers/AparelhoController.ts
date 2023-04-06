@@ -3,17 +3,19 @@ import { AparelhoModel } from "../models/AparelhoModel";
 export class Aparelho implements AparelhoModel {
     id: number;
     nome: string;
-    consumo: number; // Em watts
+    tipo: string;
+    potencia_min: number; // Em watts
+    potencia_max: number; // Em watts
+    consumo_total: number; // Em watts
     leituras: number[]; // Em watts
   
-    // Classe aparelho:
-        // - ID do aparelho para identificação;
-        // - Nome do aparelho;
-        // - Consumo do aparelho;
-    constructor(id: number, nome: string, consumo: number) {
+    constructor(id: number, nome: string, tipo: string, potencia_min: number, potencia_max: number) {
       this.id = id;
       this.nome = nome;
-      this.consumo = consumo;
+      this.tipo = tipo;
+      this.potencia_min = potencia_min;
+      this.potencia_max = potencia_max;
+      this.consumo_total = 0;
       this.leituras = [];
     }
   
