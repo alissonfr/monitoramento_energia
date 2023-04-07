@@ -19,8 +19,16 @@ export class Aparelho implements AparelhoModel {
       this.leituras = [];
     }
   
+    /**
+    * ##### Sobre:
+    * A função utiliza um loop for para percorrer cada elemento do array e somá-los a variável total
+    * 
+    * ##### Complexidade:
+    * A complexidade assintótica desta função é O(n), onde n é o número de elementos no 
+    * array de leituras leituras.  Como o loop é executado uma vez para cada elemento do array, 
+    * a complexidade é linear em relação ao tamanho do array.
+    */
     calcularConsumoTotal(): number {
-      // Calcula o consumo total do aparelho com base nas leituras registradas
       let total = 0;
       for (let leitura of this.leituras) {
         total += leitura;

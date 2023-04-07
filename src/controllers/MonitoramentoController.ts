@@ -55,13 +55,29 @@ export class Monitoramento {
     
     // MÉTODOS PARA IMPRIMIR OS VALORES LIDOS
     
+    /**
+    * ##### Sobre:
+    * Função simples que imprime uma tabela de dados na saída 
+    * do console, e portanto, a sua complexidade não depende do tamanho dos dados, 
+    * 
+    * ##### Complexidade:
+    * Por ser uma função simples que apenas imprime uma tabela de dados na saída 
+    * do console, sua complexidade não depende do tamanho dos dados,.
+    */
     imprimirAparelhos() {
       console.log("(d.1) Lista de aparelhos monitorados:");
       console.table(this.aparelhos, ['id', 'nome', 'tipo', 'consumo_total']);
       console.log('----------------------------------------------------------------')
     }
 
-    // Função para ordenar e exibir os aparelhos por número de leituras crescente
+    /**
+    * ##### Sobre:
+    * Função para ordenar e exibir os aparelhos por número de leituras crescente
+    * 
+    * ##### Complexidade:
+    * A complexidade desta função é O(n), onde n é o número de aparelhos na lista. Isso ocorre porque o 
+    * algoritmo itera pela lista de aparelhos uma vez e, para cada aparelho, imprime seu array de leituras
+    */
     imprimirLeituraAparelhos() {
       console.log('(d.2) Lista das leituras por aparelho monitorado')
       for (let i = 0; i < this.aparelhos.length; i++) {
@@ -71,7 +87,15 @@ export class Monitoramento {
       console.log('----------------------------------------------------------------')
     }
     
-    // Função para ordenar e exibir os aparelhos por número de leituras crescente
+    /**
+    * ##### Sobre:
+    * Função para ordenar e exibir os aparelhos por número de leituras crescente
+    * 
+    * ##### Complexidade:
+    * A complexidade desta função é O(n^2), onde n é o número de aparelhos na lista. Isso ocorre porque a função ordenarCrescente() é 
+    * chamado primeiro, que possui uma complexidade O(n^2). Em seguida, o algoritmo itera sobre a lista ordenada uma vez para imprimir as 
+    * leituras de cada aparelho.
+    */
     imprimirLeituraAparelhosCrescente() {
       const aparelhosOrdenados = ordenarCrescente(this.aparelhos);
       console.log('(d.3) Lista das leituras por aparelho monitorado ordenados por ordem crescente')
@@ -82,6 +106,15 @@ export class Monitoramento {
       console.log('----------------------------------------------------------------')
     }
   
+    /**
+    * ##### Sobre:
+    * Esta função apenas itera por todos os aparelhos instanciados e soma o total de W gastos nas leituras
+    * feitas de todos os aparelhos juntos.
+    * 
+    * ##### Complexidade:
+    * A complexidade deste algoritmo é O(n), onde n é o número de aparelhos na lista. Isso ocorre porque o algoritmo 
+    * itera pela lista de aparelhos uma vez e chama a função "calcularConsumoTotal" de cada aparelho.
+    */
     imprimirConsumoTotalGeral() {
       let total = 0;
       for (let i = 0; i < this.aparelhos.length; i++) {
