@@ -24,7 +24,7 @@ export class Aparelho implements AparelhoModel {
     * A função utiliza um loop for para percorrer cada elemento do array e somá-los a variável total
     * 
     * ##### Complexidade:
-    * A complexidade assintótica desta função é O(n), onde n é o número de elementos no 
+    * A complexidade assintótica desta função é O(n) (linear), onde n é o número de elementos no 
     * array de leituras leituras.  Como o loop é executado uma vez para cada elemento do array, 
     * a complexidade é linear em relação ao tamanho do array.
     */
