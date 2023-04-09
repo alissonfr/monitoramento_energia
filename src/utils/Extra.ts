@@ -2,15 +2,27 @@ import { AparelhoModel } from "../models/AparelhoModel";
 
     /**
     * ##### Sobre:
-    * Essa função percorre cada aparelho e, para cada aparelho, percorre e compara todas as leituras entre si para encontrar a maior 
-    * diferença entre duas leituras. Ou seja, ela encontra a maior discrepancia absoluta entre as leituras 
-    * dos aparelhos. 
+    * A função encontra a maior diferença absoluta entre todas as combinações possíveis de duas leituras do mesmo aparelho, 
+    * e retorna o nome do aparelho correspondente e o valor dessa maior diferença. O algoritmo consiste em dois loops aninhados
+    *  que iteram sobre as leituras de cada aparelho. Para cada aparelho, as diferenças absolutas entre cada par de leituras são 
+    * calculadas e verificadas se são maiores do que a maior diferença encontrada até agora. Se a diferença calculada for maior, 
+    * a maior diferença é atualizada e o nome do aparelho correspondente é armazenado. Ao final da iteração de todos os 
+    * aparelhos e suas leituras, o nome do aparelho com a maior diferença e o valor dessa diferença são impressos na tela.
     * 
     * ##### Complexidade:
-    * Como existem três loops aninhados, a complexidade da função é cúbica. Ou seja,
-    * a complexidade desse algoritmo é O(n^3), onde n é o número total de leituras em todos os aparelhos
+    * A complexidade desse algoritmo é O(n^3), pois existem três loops aninhados, um para iterar sobre os 
+    * aparelhos, outro para iterar sobre as leituras de cada aparelho, e um terceiro para comparar cada par 
+    * de leituras. 
+    * À medida que a lista de aparelhos aumenta em tamanho, a complexidade aumenta exponencialmente, 
+    * o que pode tornar o algoritmo ineficiente para listas muito grandes.
+    * 
+    * ##### É possível que o algoritmo gere alguma situação de necessidade de processamento via brute force?
+    * Sim, a função utiliza três loops aninhados, sendo dois loops para iterar sobre as leituras do aparelho e um terceiro 
+    * loop aninhado para calcular todas as diferenças possíveis entre as leituras. Portanto, a função tem uma complexidade cúbica, 
+    * onde n é o número total de leituras entre todos os aparelhos. Esse tipo de algoritmo acaba gerando um brute force, pois 
+    * testa todas as possibilidades de uma solução sem utilizar nenhum tipo de otimização.
+    * 
     */
-
     export function encontrarMaiorDiferenca(aparelhos: AparelhoModel[]): void {
         const n = aparelhos.length;
         let maiorDiferenca = 0;
