@@ -40,7 +40,7 @@ export class Monitoramento {
     * independentemente do tamanho da lista, e o loop interno executa sempre 10 vezes. Portanto, a quantidade total de iterações do loop interno 
     * é sempre 10 vezes o número de aparelhos. Como a notação big O desconsidera constantes, podemos dizer que a complexidade é O(n).
     */
-    gerarLeituras() {
+    gerarLeituras(): void {
       for (let i = 0; i < this.aparelhos.length; i++) {
         const aparelho = this.aparelhos[i]
         for (let j = 0; j < 10; j++) {
@@ -64,7 +64,7 @@ export class Monitoramento {
     * Por ser uma função simples que apenas imprime uma tabela de dados na saída 
     * do console, sua complexidade não depende do tamanho dos dados,.
     */
-    imprimirAparelhos() {
+    imprimirAparelhos(): void {
       console.log("(d.1) Lista de aparelhos monitorados:");
       console.table(this.aparelhos, ['id', 'nome', 'tipo', 'consumo_total']);
       console.log('----------------------------------------------------------------')
@@ -78,7 +78,7 @@ export class Monitoramento {
     * A complexidade desta função é O(n), onde n é o número de aparelhos na lista. Isso ocorre porque o 
     * algoritmo itera pela lista de aparelhos uma vez e, para cada aparelho, imprime seu array de leituras
     */
-    imprimirLeituraAparelhos() {
+    imprimirLeituraAparelhos(): void {
       console.log('(d.2) Lista das leituras por aparelho monitorado')
       for (let i = 0; i < this.aparelhos.length; i++) {
         const aparelho = this.aparelhos[i]
@@ -96,7 +96,7 @@ export class Monitoramento {
     * chamado primeiro, que possui uma complexidade O(n^2). Em seguida, o algoritmo itera sobre a lista ordenada uma vez para imprimir as 
     * leituras de cada aparelho.
     */
-    imprimirLeituraAparelhosCrescente() {
+    imprimirLeituraAparelhosCrescente(): void {
       const aparelhosOrdenados = ordenarCrescente(this.aparelhos);
       console.log('(d.3) Lista das leituras por aparelho monitorado ordenados por ordem crescente')
       for (let i = 0; i < aparelhosOrdenados.length; i++) {
@@ -115,7 +115,7 @@ export class Monitoramento {
     * A complexidade deste algoritmo é O(n), onde n é o número de aparelhos na lista. Isso ocorre porque o algoritmo 
     * itera pela lista de aparelhos uma vez e chama a função "calcularConsumoTotal" de cada aparelho.
     */
-    imprimirConsumoTotalGeral() {
+    imprimirConsumoTotalGeral(): void {
       let total = 0;
       for (let i = 0; i < this.aparelhos.length; i++) {
         const aparelho = this.aparelhos[i]

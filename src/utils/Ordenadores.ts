@@ -1,3 +1,5 @@
+import { AparelhoModel } from "../models/AparelhoModel";
+
     /**
     * ##### Sobre:
     * Função para somar as leituras de um aparelho. A função itera por todos os items do array de leituras e retorna
@@ -7,7 +9,7 @@
     * A complexidade deste algoritmo é O(n), onde n é o número de leituras no objeto aparelho. Isso ocorre 
     * porque o algoritmo itera através da lista de leituras uma vez e soma cada elemento.
     */
-    export function somarLeituras(aparelho: any) {
+    export function somarLeituras(aparelho: AparelhoModel): number {
         let soma = 0;
         for (let i = 0; i < aparelho.leituras.length; i++) {
             soma += aparelho.leituras[i];
@@ -32,15 +34,15 @@
     * lista de aparelhos. Isso ocorre porque há um loop aninhado que compara cada elemento com todos os outros elementos da 
     * lista.
     */
-    export function ordenarCrescente(aparelhos: any) {
+    export function ordenarCrescente(aparelhos: AparelhoModel[]): AparelhoModel[] {
         for (let i = 0; i < aparelhos.length - 1; i++) {
-        for (let j = i + 1; j < aparelhos.length; j++) {
-            if (somarLeituras(aparelhos[i]) > somarLeituras(aparelhos[j])) {
-            const temp = aparelhos[i];
-            aparelhos[i] = aparelhos[j];
-            aparelhos[j] = temp;
+            for (let j = i + 1; j < aparelhos.length; j++) {
+                if (somarLeituras(aparelhos[i]) > somarLeituras(aparelhos[j])) {
+                    const temp = aparelhos[i];
+                    aparelhos[i] = aparelhos[j];
+                    aparelhos[j] = temp;
+                }
             }
-        }
         }
         return aparelhos;
     }
