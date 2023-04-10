@@ -76,7 +76,7 @@ export class Monitoramento {
 
     /**
     * ##### Sobre:
-    * Função para ordenar e exibir os aparelhos por número de leituras crescente
+    * Função para ordenar e exibir os aparelhos
     * 
     * ##### Complexidade:
     * A complexidade desta função é O(n) (linear), onde n é o número de aparelhos na lista. Isso ocorre porque o 
@@ -95,7 +95,7 @@ export class Monitoramento {
     
     /**
     * ##### Sobre:
-    * Função para ordenar e exibir os aparelhos por número de leituras crescente
+    * Função para ordenar e exibir os aparelhos por número de leituras na ordem crescente
     * 
     * ##### Complexidade:
     * A complexidade desta função é O(n^2) (quadrática), onde n é o número de aparelhos na lista. Isso ocorre porque a função ordenarCrescente() é 

@@ -3,7 +3,7 @@ import { AparelhoModel } from "../models/AparelhoModel";
     /**
     * ##### Sobre:
     * Função para somar as leituras de um aparelho. A função itera por todos os items do array de leituras e retorna
-    * a soma de todos os itens do array. Ou seja, retorna a potencia total gastada no periodo
+    * a soma de todos os itens do array. Ou seja, retorna a potencia total gastada no periodo.
     * 
     * ##### Complexidade:
     * A complexidade deste algoritmo é O(n), onde n é o número de leituras no objeto aparelho. Isso ocorre 
@@ -30,6 +30,8 @@ import { AparelhoModel } from "../models/AparelhoModel";
     * 
     * Por fim, a função retorna o array de aparelhos ordenado. É importante notar que a função não faz nenhuma validação ou 
     * tratamento de erro para garantir que o parâmetro aparelhos seja um array válido de objetos.
+    * 
+    * Simula a função 'sort' nativa do Javascript
     * 
     * ##### Complexidade:
     * A complexidade deste algoritmo de ordenação por seleção é O(n^2), onde n é o número de elementos na 
