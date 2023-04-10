@@ -1,5 +1,5 @@
 # 💡 Monitoramento de consumo de energia elétrica
-Este é um programa em Typescript que permite monitorar o consumo de energia elétrica de uma casa. O programa é capaz de coletar informações sobre o uso de energia de vários aparelhos elétricos e realizar análises de consumo dos aparelhos.
+Este é um programa em Typescript que permite monitorar o consumo de energia elétrica de uma casa. O programa é capaz de coletar informações sobre o uso de energia de vários aparelhos elétricos e realizar análises de consumo dos aparelhos em uma faixa de 10 horas (10 leituras).
 
 ## 💻 Pré-requisitos
 Para utilizar este programa, é necessário possuir:

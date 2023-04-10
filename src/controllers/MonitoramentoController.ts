@@ -76,7 +76,7 @@ export class Monitoramento {
 
     /**
     * ##### Sobre:
-    * Função para ordenar e exibir os aparelhos
+    * Função para exibir os aparelhos
     * 
     * ##### Complexidade:
     * A complexidade desta função é O(n) (linear), onde n é o número de aparelhos na lista. Isso ocorre porque o 
