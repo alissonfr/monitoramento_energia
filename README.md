@@ -37,7 +37,7 @@ cd monitoramento_energia
 npm install
 ```
 
-2. Inicie o programa com o comando:
+3. Inicie o programa com o comando:
 ```bash
 npm start
 ```
