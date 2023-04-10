@@ -5,7 +5,7 @@ class Main {
     constructor() {}
   
     public static main() {
-        const monitoramento = new Monitoramento(5);
+        const monitoramento = new Monitoramento(10);
 
         monitoramento.imprimirAparelhos();
         monitoramento.imprimirLeituraAparelhos();
