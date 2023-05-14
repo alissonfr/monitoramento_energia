@@ -30,7 +30,7 @@ class Main {
                         );
                     }
                 }
-                console.log(`Leituras do aparelho ${aparelho.nome}: [ ${aparelho.leituras} ]\n`);
+                console.log(`Leituras do aparelho ${aparelho.id} (${aparelho.nome}): [ ${aparelho.leituras} ]\n`);
             }
 
         }, 2000);

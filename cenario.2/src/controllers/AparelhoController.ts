@@ -37,7 +37,7 @@ export class Aparelho implements AparelhoModel {
         }
       }
 
-      console.log(`Leituras do aparelho ${this.nome}: [ ${leituras} ]\n`);
+      console.log(`Leituras do aparelho ${this.id} (${this.nome}): [ ${leituras} ]\n`);
     });
 
 
