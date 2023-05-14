@@ -22,7 +22,6 @@ export class Aparelho implements AparelhoModel {
 
     this.gerarLeiturasWorker.on("message", (leituras: number[]) => {
       this.leituras = leituras;
-      // console.log(`Leituras do aparelho ${this.nome}: [ ${this.leituras} ]\n`);
     });
 
     this.gerarLeiturasWorker.on("error", (error) => {
