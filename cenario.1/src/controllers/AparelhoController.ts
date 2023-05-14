@@ -29,7 +29,6 @@ export class Aparelho implements AparelhoModel {
     });
 
     this.gerarLeiturasWorker.postMessage({
-      nome: this.nome,
       potencia_min: this.potencia_min,
       potencia_max: this.potencia_max,
     });

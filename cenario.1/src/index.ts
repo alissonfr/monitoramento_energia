@@ -21,7 +21,7 @@ class Main {
                     const leitura = aparelho.leituras[j];
                     if (leitura > 0.9 * aparelho.potencia_max) {
                         console.log(
-                            `🚨 GRAVE: Na leitura ${j + 1} o aparelho ${aparelho.nome} demonstrou estar operando com a potencia de ${leitura}W que é mais de 90% da sua potência máxima (${aparelho.potencia_max}W)`
+                            `🚨 GRAVE: Na leitura ${j + 1}, o aparelho ${aparelho.nome} demonstrou estar operando com a potencia de ${leitura}W que é mais de 90% da sua potência máxima (${aparelho.potencia_max}W)`
                         );
                     }
                 }

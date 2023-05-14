@@ -1,9 +1,6 @@
 const { parentPort } = require("worker_threads");
 
 interface AparelhoData {
-  id: number;
-  nome: string;
-  tipo: string;
   potencia_min: number;
   potencia_max: number;
 }
@@ -11,7 +8,7 @@ interface AparelhoData {
 let intervalId: NodeJS.Timeout;
 
 parentPort.on("message", (aparelho: AparelhoData) => {
-  const { potencia_max, potencia_min, nome } = aparelho;
+  const { potencia_max, potencia_min } = aparelho;
   intervalId = setInterval(() => {
     const leituras = [];
     for (let i = 1; i <= 10; i++) {
