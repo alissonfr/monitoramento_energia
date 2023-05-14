@@ -4,5 +4,5 @@ export interface AparelhoModel {
   tipo: string;
   potencia_min: number;
   potencia_max: number;
-  leituras: number[]; 
+  leituras: number[];
 }
