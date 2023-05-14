@@ -28,34 +28,8 @@ export class Monitoramento {
         const eletrodomestico = eletrodomesticosData[indiceAleatorio];
         this.aparelhos.push(new Aparelho(i , eletrodomestico.nome, eletrodomestico.tipo, eletrodomestico.potencia_min, eletrodomestico.potencia_max ))
       }
+    }
 
-      this.gerarLeituras()
-    }
-  
-    /**
-    * ##### Sobre:
-    * Este algoritmo simula a geração de leituras de consumo para cada aparelho monitorado. Ele itera por uma lista de aparelhos e 
-    * gera 10 leituras aleatorias para cada aparelho com uma variação de 10% entre cada leitura
-    * 
-    * ##### Complexidade:
-    * A complexidade deste algoritmo é O(n) (linear), onde n é o número de aparelhos na lista. O loop externo executa uma vez para cada aparelho, 
-    * independentemente do tamanho da lista, e o loop interno executa sempre 10 vezes. Portanto, a quantidade total de iterações do loop interno 
-    * é sempre 10 vezes o número de aparelhos. Como a notação big O desconsidera constantes, podemos dizer que a complexidade é O(n).
-    * Portanto, se a entrada de dados for muito grande, o tempo de execução do algoritmo também aumentará proporcionalmente, 
-    * o que pode levar a um tempo de processamento significativo.
-    */
-    gerarLeituras(): void {
-      for (let i = 0; i < this.aparelhos.length; i++) {
-        const aparelho = this.aparelhos[i]
-        for (let j = 0; j < 10; j++) {
-          const variacao = Math.random() * 0.1 - 0.05; // variação aleatória entre -5% e 5%
-          const consumo = Math.round(Math.random() * (aparelho.potencia_max - aparelho.potencia_min) + aparelho.potencia_min); // número aleatório entre potência mínima e máxima, arredondado para o inteiro mais próximo
-          const consumoVariacao = Math.round(consumo * (1 + variacao)); // consumo  variação de 10%, arredondado para o inteiro mais próximo
-          aparelho.consumo_total += consumoVariacao; // incrementa o consumo total
-          aparelho.leituras.push(consumoVariacao); // adiciona a leitura à lista de leituras do aparelho
-        }
-      }
-    }
     
     // MÉTODOS PARA IMPRIMIR OS VALORES LIDOS
     

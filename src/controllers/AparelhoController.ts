@@ -6,8 +6,8 @@ export class Aparelho implements AparelhoModel {
     tipo: string;
     potencia_min: number; // Em watts
     potencia_max: number; // Em watts
-    consumo_total: number; // Em watts
     leituras: number[]; // Em watts
+    gerarLeiturasPromise: Promise<number[]>;
   
     constructor(id: number, nome: string, tipo: string, potencia_min: number, potencia_max: number) {
       this.id = id;
@@ -15,24 +15,28 @@ export class Aparelho implements AparelhoModel {
       this.tipo = tipo;
       this.potencia_min = potencia_min;
       this.potencia_max = potencia_max;
-      this.consumo_total = 0;
       this.leituras = [];
-    }
+      this.gerarLeiturasPromise = Promise.resolve([]);
+
+      setInterval(() => {
+        this.gerarLeiturasPromise = new Promise<number[]>((resolve) => {
+          const leituras = [];
+          for (let i = 1; i <= 10; i++) {
+            const consumoVariacao = Math.round(Math.random() * (this.potencia_max - this.potencia_min + 1)) + this.potencia_min;
+            
+            if (consumoVariacao > 0.9 * this.potencia_max) {
+              console.log(`🚨 GRAVE: Na leitura ${i} o aparelho ${this.nome} demonstrou estar operando com a potencia de ${consumoVariacao}W que é mais de 90% da sua potência máxima (${this.potencia_max}W)`);
+            }
+
+            leituras.push(consumoVariacao);
+          }
+          resolve(leituras);
+        });
   
-    /**
-    * ##### Sobre:
-    * A função utiliza um loop for para percorrer cada elemento do array e somá-los a variável total
-    * 
-    * ##### Complexidade:
-    * A complexidade assintótica desta função é O(n) (linear), onde n é o número de elementos no 
-    * array de leituras leituras.  Como o loop é executado uma vez para cada elemento do array, 
-    * a complexidade é linear em relação ao tamanho do array.
-    */
-    calcularConsumoTotal(): number {
-      let total = 0;
-      for (let leitura of this.leituras) {
-        total += leitura;
-      }
-      return total;
+        this.gerarLeiturasPromise.then((leituras) => {
+          this.leituras = leituras;
+          console.log(`Leituras do aparelho ${this.nome}: [ ${this.leituras} ]\n`)
+        });
+      }, 2000);
     }
-  }
+    }
