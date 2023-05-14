@@ -17,11 +17,8 @@ export class Monitoramento {
     * ##### Sobre:
     * Este escolhe os aparelhos aleatoriamente e os instancia na classe Aparelho
     * 
-    * ##### Complexidade:
-    * A complexidade desse loop é O(n) (linear), onde n é o número de aparelhos, já que ele itera numAparelhos vezes. A razão para isso é que a quantidade de vezes que o 
-    * loop executa é diretamente proporcional ao número de aparelhos que precisam ser criados.
-    * Assim, o tempo de execução do algoritmo aumentara proporcionalmente em relação a quantidade
-    * de dados inseridos, o que pode levar a um tempo de processamento maior.
+    * ##### Complexidade: 
+    * A complexidade desse código é O(1), que indica que o tempo de execução não varia com o tamanho dos dados de entrada.
     */
     for (let i = 1; i <= numAparelhos; i++) {
       const indiceAleatorio = Math.floor(Math.random() * eletrodomesticosData.length);
@@ -39,8 +36,8 @@ export class Monitoramento {
   * do console, e portanto, a sua complexidade não depende do tamanho dos dados, 
   * 
   * ##### Complexidade:
-  * Por ser uma função simples que apenas imprime uma tabela de dados na saída 
-  * do console, sua complexidade não depende do tamanho dos dados.
+  * A complexidade desse código é O(1), que indica que o tempo de execução não varia com o tamanho dos dados de entrada.
+  * 
   */
   imprimirAparelhos(): void {
     console.log("(d.1) Lista de aparelhos monitorados:");

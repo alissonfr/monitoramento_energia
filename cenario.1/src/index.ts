@@ -4,6 +4,7 @@ import { Monitoramento } from "./controllers/MonitoramentoController";
 class Main {
     constructor() { }
 
+    // Complexidade: O(1). Ou seja, o tempo de execução não varia com o tamanho dos dados de entrada.
     public static async main() {
         const monitoramento = new Monitoramento(10);
         setTimeout(() => {
@@ -17,6 +18,21 @@ class Main {
 
     }
 
+      /***
+   * ##### Sobre:
+   * O código verifica todos os aparelhos periodicamente e olha
+   * se há algum aparelho está operando próximo de sua potência máxima e, caso positivo, emite um alerta.
+   * 
+   * No entanto, a função é executada em um intervalo de 2 segundos, o que pode levar a muitas iterações ao longo do tempo, o que pode afetar o 
+   * desempenho do sistema de forma significativa. Além disso, a função contém uma chamada para setInterval, que é executada continuamente, e uma 
+   * chamada para process.on('exit'), que é executada quando o processo é encerrado. Estas operações adicionais podem ter impacto no desempenho e no 
+   * uso da memória do sistema.
+   * 
+   * ##### Complexidade: 
+   * A função verificarAparelhos contém dois loops aninhados, o primeiro percorre os aparelhos e o segundo percorre as leituras de cada aparelho. 
+   * Assumindo que n é o número total de aparelhos e m é o número máximo de leituras que um aparelho pode ter, a complexidade de tempo é O(n * m). 
+   * 
+   */
     public static verificarAparelhos(monitoramento: Monitoramento) {
         setInterval(() => {
             console.log('====================== VERIFICANDO APARELHOS NA MAIN ======================')

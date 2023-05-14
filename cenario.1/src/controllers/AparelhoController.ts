@@ -11,6 +11,14 @@ export class Aparelho implements AparelhoModel {
   leituras: number[]; // Em watts
   gerarLeiturasWorker: Worker;
 
+  /***
+   * ##### Sobre:
+   * O código recebe parâmetros e inicializa as propriedades da instância da classe Aparelho
+   * 
+   * ##### Complexidade: 
+   * A complexidade desse código é O(1), que indica que o tempo de execução não varia com o tamanho dos dados de entrada.
+   * 
+   */
   constructor(id: number, nome: string, tipo: string, potencia_min: number, potencia_max: number) {
     this.id = id;
     this.nome = nome;

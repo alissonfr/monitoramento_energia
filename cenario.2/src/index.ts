@@ -4,6 +4,7 @@ import { Monitoramento } from "./controllers/MonitoramentoController";
 class Main {
     constructor() { }
 
+    // Complexidade: O(1). Ou seja, o tempo de execução não varia com o tamanho dos dados de entrada.
     public static main() {
         const monitoramento = new Monitoramento(10);
         setTimeout(() => {

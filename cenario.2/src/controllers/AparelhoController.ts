@@ -11,6 +11,14 @@ export class Aparelho implements AparelhoModel {
   leituras: number[]; // Em watts
   gerarLeiturasWorker: Worker;
 
+    /**
+  * ##### Sobre:
+  * Função para ordenar e exibir os aparelhos por número de leituras na ordem crescente
+  * 
+  * ##### Complexidade:
+  * A complexidade de tempo deste código seria O(n), onde n é o tamanho do array de leituras. Isso ocorre porque há 
+  * um loop for que itera sobre as leituras e executa algumas operações de tempo constante em cada iteração.  
+  * */
   constructor(id: number, nome: string, tipo: string, potencia_min: number, potencia_max: number) {
     this.id = id;
     this.nome = nome;
