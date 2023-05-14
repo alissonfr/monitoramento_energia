@@ -44,7 +44,7 @@ export class Monitoramento {
   */
   imprimirAparelhos(): void {
     console.log("(d.1) Lista de aparelhos monitorados:");
-    console.table(this.aparelhos, ['id', 'nome', 'tipo', 'consumo_total']);
+    console.table(this.aparelhos, ['id', 'nome', 'tipo']);
     console.log('----------------------------------------------------------------')
   }
 

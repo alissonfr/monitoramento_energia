@@ -4,17 +4,22 @@ import { Monitoramento } from "./controllers/MonitoramentoController";
 class Main {
     constructor() { }
 
-    public static main() {
+    public static async main() {
         const monitoramento = new Monitoramento(10);
         setTimeout(() => {
             this.verificarAparelhos(monitoramento)
-        }, 2000);
-
+            monitoramento.imprimirAparelhos();
+            monitoramento.imprimirLeituraAparelhos();
+            monitoramento.imprimirLeituraAparelhos();
+            monitoramento.imprimirLeituraAparelhosCrescente();
+            monitoramento.encontrarMaiorDiferenca();
+        }, 5000)
 
     }
 
     public static verificarAparelhos(monitoramento: Monitoramento) {
         setInterval(() => {
+            console.log('====================== VERIFICANDO APARELHOS NA MAIN ======================')
             for (let i = 0; i < monitoramento.aparelhos.length; i++) {
                 const aparelho = monitoramento.aparelhos[i];
                 for (let j = 0; j < aparelho.leituras.length; j++) {

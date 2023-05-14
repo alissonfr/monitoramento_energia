@@ -44,7 +44,7 @@ export class Monitoramento {
   */
   imprimirAparelhos(): void {
     console.log("(d.1) Lista de aparelhos monitorados:");
-    console.table(this.aparelhos, ['id', 'nome', 'tipo', 'consumo_total']);
+    console.table(this.aparelhos, ['id', 'nome', 'tipo']);
     console.log('----------------------------------------------------------------')
   }
 
@@ -109,13 +109,13 @@ export class Monitoramento {
 * testa todas as possibilidades de uma solução sem utilizar nenhum tipo de otimização.
 * 
 */
-  encontrarMaiorDiferenca(aparelhos: AparelhoModel[]): void {
-    const n = aparelhos.length;
+  encontrarMaiorDiferenca(): void {
+    const n = this.aparelhos.length;
     let maiorDiferenca = 0;
     let nomeAparelhoMaiorDiferenca = '';
 
     for (let i = 0; i < n; i++) {
-      const aparelho = aparelhos[i];
+      const aparelho = this.aparelhos[i];
       const leituras = aparelho.leituras;
       const m = leituras.length;
 
