@@ -3,7 +3,13 @@ Este é um programa em Typescript que permite monitorar o consumo de energia el�
 
 ## 💻 Pré-requisitos
 Para utilizar este programa, é necessário possuir:
- - Node.js instalado.
+ - Node.js versão 16 ou superior instalado.
+
+## ✍️ Análise das complexidades
+### Antes
+Nuvem: O(n * m) -> Borda: O(1)
+### Depois
+Nuvem: O(1) -> Borda: O(n)
 
 ## 📶 Funcionalidades
 O programa oferece as seguintes funcionalidades:
@@ -28,16 +34,19 @@ Para instalar a aplicação, siga os seguintes passos:
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/alissonfr/monitoramento_energia.git
+git clone https://github.com/alissonfr/monitoramento_energia.git segunda-avaliacao
 ```
 
-2. Entre na pasta do projeto e instale as dependências do projeto:
+2. Entre na pasta dos projetos e instale as dependências de ambos:
 ```bash
-cd monitoramento_energia
+cd monitoramento_energia/cenario.1
+npm install
+
+cd monitoramento_energia/cenario.2
 npm install
 ```
 
-3. Inicie o programa com o comando:
+3. Inicie qualquer um dos programas com o comando:
 ```bash
 npm start
 ```
