@@ -2,6 +2,8 @@
 
 # Compiled output
 /build
+/cenario.1/build
+/cenario.2/build
 /dist
 /tmp
 /out-tsc

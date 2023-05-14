@@ -18,11 +18,28 @@ export class Aparelho implements AparelhoModel {
     this.potencia_min = potencia_min;
     this.potencia_max = potencia_max;
     this.leituras = [];
-    this.gerarLeiturasWorker = new Worker(path.join(__dirname, '../utils/Worker.ts'));
+
+    const extensao = path.extname(__filename);
+    const caminho = extensao === '.ts'
+      ? path.join(__dirname, '../utils/Worker.ts')
+      : path.join(__dirname, '../utils/Worker.js');
+    this.gerarLeiturasWorker = new Worker(caminho);
 
     this.gerarLeiturasWorker.on("message", (leituras: number[]) => {
       this.leituras = leituras;
+
+      for (let i = 0; i < leituras.length; i++) {
+        const leitura = leituras[i];
+        if (leitura > 0.99 * potencia_max) {
+          console.log(
+            `🚨 GRAVE: Na leitura ${i + 1}, o aparelho ${this.nome} demonstrou estar operando com a potencia de ${leitura}W que é mais de 99% da sua potência máxima (${this.potencia_max}W)`
+          );
+        }
+      }
+
+      console.log(`Leituras do aparelho ${this.nome}: [ ${leituras} ]\n`);
     });
+
 
     this.gerarLeiturasWorker.on("error", (error) => {
       console.error(`Erro no worker thread do aparelho ${this.nome}: ${error}`);

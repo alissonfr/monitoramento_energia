@@ -18,7 +18,12 @@ export class Aparelho implements AparelhoModel {
     this.potencia_min = potencia_min;
     this.potencia_max = potencia_max;
     this.leituras = [];
-    this.gerarLeiturasWorker = new Worker(path.join(__dirname, '../utils/Worker.ts'));
+
+    const extensao = path.extname(__filename);
+    const caminho = extensao === '.ts'
+      ? path.join(__dirname, '../utils/Worker.ts')
+      : path.join(__dirname, '../utils/Worker.js');
+    this.gerarLeiturasWorker = new Worker(caminho);
 
     this.gerarLeiturasWorker.on("message", (leituras: number[]) => {
       this.leituras = leituras;
