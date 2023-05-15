@@ -1,15 +1,15 @@
 # 💡 Monitoramento de consumo de energia elétrica
 Este é um programa em Typescript que permite monitorar o consumo de energia elétrica de uma casa. O programa é capaz de coletar informações sobre o uso de energia de vários aparelhos elétricos e realizar análises de consumo dos aparelhos em uma faixa de 10 horas (10 leituras).
+## ✍️ NOVO: Análise das complexidades
+### Antes
+Nuvem: O(n * m) -> Borda: O(1)
+### Depois
+Nuvem: O(1) -> Borda: O(n)
 
 ## 💻 Pré-requisitos
 Para utilizar este programa, é necessário possuir:
  - Node.js versão 16 ou superior instalado.
 
-## ✍️ Análise das complexidades
-### Antes
-Nuvem: O(n * m) -> Borda: O(1)
-### Depois
-Nuvem: O(1) -> Borda: O(n)
 
 ## 📶 Funcionalidades
 O programa oferece as seguintes funcionalidades:
@@ -34,7 +34,7 @@ Para instalar a aplicação, siga os seguintes passos:
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/alissonfr/monitoramento_energia.git segunda-avaliacao
+git clone -b segunda-avaliacao https://github.com/alissonfr/monitoramento_energia.git
 ```
 
 2. Entre na pasta dos projetos e instale as dependências de ambos:
