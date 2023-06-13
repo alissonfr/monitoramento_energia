@@ -1,9 +1,19 @@
 # 💡 Monitoramento de consumo de energia elétrica
 Este é um programa em Typescript que permite monitorar o consumo de energia elétrica de uma casa. O programa é capaz de coletar informações sobre o uso de energia de vários aparelhos elétricos e realizar análises de consumo dos aparelhos em uma faixa de 10 horas (10 leituras).
-## ✍️ NOVO: Análise das complexidades
-### Antes
+
+## 🔐 NOVO: Criptografia
+Agora, os dados da classe Aparelho são criptografados antes de serem enviados para a Main (Nuvem).
+
+No arquivo `src/assets/ventoinha-pc.mp3`, há um áudio de uma ventoinha de um computador. Esse áudio gera naturalmente uma sequência de bytes aleatórios (**fonte de aleatoriedade real**), e a partir dessa sequência de bytes é gerado uma senha. Essa senha, também conhecido como hash, é utilizado para criptografar cada objeto do tipo Aparelho.
+
+Por fim, na classe Main, esses objetos são descriptografados e as funções de impressão dos objetos são chamadas normalmente.
+
+Observação: Diferentemente da segunda e primeira avaliação, os métodos de impressão estão agora na classe Main, e não mais na classe MonitoramentoController. Essa alteração foi feita para comprovar que os objetos estão sendo descriptografados na Main, pois não faria sentido criptografá-los e descriptografá-los na mesma classe (MonitoramentoController).
+
+## ✍️ Análise das complexidades
+### Antes (verificar branch `segunda-avaliacao`)
 Nuvem: O(n * m) -> Borda: O(1)
-### Depois
+### Depois (cenário atual)
 Nuvem: O(1) -> Borda: O(n)
 
 ## 💻 Pré-requisitos
