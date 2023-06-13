@@ -1,7 +1,5 @@
 import data from '../assets/data.json';
-import { AparelhoModel } from '../models/AparelhoModel';
 import { GetAparelhosResponse } from '../models/GetAparelhosResponse';
-import { ordenarCrescente } from '../utils/Ordenadores';
 import { Aparelho } from './AparelhoController';
 import path from 'path'
 import * as fs from 'fs';
@@ -20,9 +18,12 @@ export class Monitoramento {
 
     /**
     * ##### Sobre:
-    * Este escolhe os aparelhos aleatoriamente e os instancia na classe Aparelho
+    * O trecho de código abaixo escolhe os aparelhos aleatoriamente e os instancia na classe Aparelho, 
+    * o número de aparelhos é baseado em 'numAparelhos', valor passado quando a classe é instanciada.
+    * Ante disso, o método utiliza a função auxiliar do tipo Promise 'lerBytesDeAudio' para obter o array de bytes de uma fonte de aleatoriedade real
+    * e com isso gera um 'hash' para criptografar esses objetos do tipo Aparelho antes de manda-los para a Main.
     * 
-    * ##### Complexidade: 
+    * ##### Complexidade:
     * A complexidade desse código é O(1), que indica que o tempo de execução não varia com o tamanho dos dados de entrada.
     */
     // Lê os bytes de um arquivo de áudio chamado "ventoinha-pc.mp3".
@@ -51,32 +52,14 @@ export class Monitoramento {
       });
 
 
-  // MÉTODOS PARA IMPRIMIR OS VALORES LIDOS
-
-  /**
-  * ##### Sobre:
-  * Função simples que imprime uma tabela de dados na saída 
-  * do console, e portanto, a sua complexidade não depende do tamanho dos dados, 
-  * 
-  * ##### Complexidade:
-  * Por ser uma função simples que apenas imprime uma tabela de dados na saída 
-  * do console, sua complexidade não depende do tamanho dos dados.
-  */
-  imprimirAparelhos(): void {
-    console.log("(d.1) Lista de aparelhos monitorados:");
-    console.table(this.aparelhos, ['id', 'nome', 'tipo']);
-    console.log('----------------------------------------------------------------')
   }
 
   /**
   * ##### Sobre:
-  * Função para exibir os aparelhos
+  * Retorna o valor de this.hash
   * 
   * ##### Complexidade:
-  * A complexidade desta função é O(n) (linear), onde n é o número de aparelhos na lista. Isso ocorre porque o 
-  * algoritmo itera pela lista de aparelhos uma vez e, para cada aparelho, imprime seu array de leituras
-  * Portanto, se a entrada de dados for muito grande, o tempo de execução do algoritmo também aumentará proporcionalmente, 
-  * o que pode levar a um tempo de processamento significativo.
+  * A complexidade da função é considerada O(1), pois não há loops ou iterações envolvidos
   */
   getHash(): string {
     return this.hash;
@@ -84,12 +67,11 @@ export class Monitoramento {
 
   /**
   * ##### Sobre:
-  * Função para ordenar e exibir os aparelhos por número de leituras na ordem crescente
+  * Recebe um caminho do sistema (path) e retorna os bytes de um arquivo de áudio.
   * 
   * ##### Complexidade:
-  * A complexidade desta função é O(n^2) (quadrática), onde n é o número de aparelhos na lista. Isso ocorre porque a função ordenarCrescente() é 
-  * chamado primeiro, que possui uma complexidade O(n^2). Em seguida, o algoritmo itera sobre a lista ordenada uma vez para imprimir as 
-  * leituras de cada aparelho.
+  * A complexidade dessa função é de O(1). 
+  * Isso ocorre porque a função apenas utiliza a operação fs.readFile, que é uma operação assíncrona que não envolve nenhum loop ou iteração. 
   */
   lerBytesDeAudio(path: string): Promise<Buffer> {
     return new Promise<Buffer>((resolve, reject) => {
