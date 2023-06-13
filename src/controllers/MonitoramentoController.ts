@@ -20,12 +20,30 @@ export class Monitoramento {
     * ##### Complexidade: 
     * A complexidade desse código é O(1), que indica que o tempo de execução não varia com o tamanho dos dados de entrada.
     */
-    for (let i = 1; i <= numAparelhos; i++) {
-      const indiceAleatorio = Math.floor(Math.random() * eletrodomesticosData.length);
-      const eletrodomestico = eletrodomesticosData[indiceAleatorio];
-      this.aparelhos.push(new Aparelho(i, eletrodomestico.nome, eletrodomestico.tipo, eletrodomestico.potencia_min, eletrodomestico.potencia_max))
-    }
-  }
+    // Lê os bytes de um arquivo de áudio chamado "ventoinha-pc.mp3".
+    this.lerBytesDeAudio(path.join(__dirname, '../assets/ventoinha-pc.mp3'))
+      .then((bytes: Buffer) => {
+        // Converte os bytes em um array de números inteiros.
+        const byteArray = Array.from(bytes);
+        // Cria uma estrutura de dados do tipo "WordArray" a partir do array de bytes.
+        const wordArray = crypto.lib.WordArray.create(byteArray);
+        // Calcula o hash SHA256 da estrutura "WordArray".
+        const hash = crypto.SHA256(wordArray);
+        this.hash = hash.toString()
+
+        for (let i = 1; i <= numAparelhos; i++) {
+          const indiceAleatorio = Math.floor(Math.random() * eletrodomesticosData.length);
+          const eletrodomestico = eletrodomesticosData[indiceAleatorio];
+
+          const aparelho = new Aparelho(i, eletrodomestico.nome, eletrodomestico.tipo, eletrodomestico.potencia_min, eletrodomestico.potencia_max)
+          // Criptografa o objeto "Aparelho" utilizando o algoritmo AES com a chave sendo o valor da variável "hash".
+          const aparelhoCriptografado = crypto.AES.encrypt(JSON.stringify(aparelho), this.hash).toString();
+          this.aparelhos.push(aparelhoCriptografado)
+        }
+      })
+      .catch((error) => {
+        console.error('Erro ao ler o arquivo de áudio: ', error);
+      });
 
 
   // MÉTODOS PARA IMPRIMIR OS VALORES LIDOS
