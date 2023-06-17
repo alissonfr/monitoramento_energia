@@ -17,6 +17,14 @@ export class Monitoramento {
     this.numAparelhos = numAparelhos
   }
 
+  /**
+  * ##### Sobre:
+  * Função retorna uma promise onde ela só é resolvida caso a leitura dos bytes do áudio e a thread inicie com sucesso.
+  * 
+  * ##### Complexidade:
+  * A complexidade dessa função é O(n), onde n é o valor de this.numAparelhos. Isso ocorre devido ao loop for que itera this.numAparelhos vezes
+  * 
+  */
   iniciarMonitoramento(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       // Lê os bytes do áudio
@@ -43,6 +51,14 @@ export class Monitoramento {
     });
   }
 
+  /**
+  * ##### Sobre:
+  * Inicia a worker thread e realiza a verificação
+  * 
+  * ##### Complexidade:
+  * A complexidade de tempo deste código seria O(n), onde n é o tamanho do array de leituras. Isso ocorre porque há 
+  * um loop for que itera sobre as leituras e executa algumas operações de tempo constante em cada iteração.  
+  * */
   iniciarThread(aparelho: Aparelho) {
     const gerarLeiturasWorker: Worker = new Worker(path.join(__dirname, '../utils/Worker.ts'));
     gerarLeiturasWorker.on("message", (leituras: number[]) => {
