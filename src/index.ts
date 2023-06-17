@@ -9,34 +9,45 @@ class Main {
     /**
     * ##### Sobre:
     * O código apresentado cria uma instancia de Monitoramento, executa um loop que itera sobre 
-    * os aparelhos na instância de "monitoramento".
+    * os aparelhos na instância de "monitoramento" e são obtidas pelo método estático getAparelhos().
     * 
     * Para cada aparelho criptografado na lista, realiza as seguintes operações:
     *   a. Descriptografa o aparelho utilizando o algoritmo AES com o hash sendo retornado pelo método "getHash".
     *   b. Converte o resultado da descriptografia para uma string no formato UTF-8.
-    *   c. Adiciona o objeto descriptografado à lista "aparelhos".
+    *   c. Adiciona o objeto descriptografado à lista "aparelhosDescriptografados".
     * 
-    * Após isso, é chamado os métodos para a impressão dos aparelhos.
+    * Após isso, são chamado os métodos para a impressão dos aparelhos.
     * 
     * ##### Complexidade:
-    * A complexidade desse código é O(n), onde n é o número de elementos no array monitoramento.aparelhos.
+    * A complexidade desse código é O(n), onde n é o número de elementos no array aparelhosCriptografados.
     */
-    public static main() {
+    public static async main() {
         const monitoramento = new Monitoramento(10);
-        const aparelhos: Aparelho[] = []
 
-        for (let i = 0; i < monitoramento.aparelhos.length; i++) {
-            const aparelhoCriptografado = monitoramento.aparelhos[i];
-            const aparelhoDescriptografado = crypto.AES.decrypt(aparelhoCriptografado, monitoramento.getHash()).toString(CryptoJS.enc.Utf8);
-            const aparelhoDecryptado = JSON.parse(aparelhoDescriptografado);
-            aparelhos.push(aparelhoDecryptado);
-        }        
-        setTimeout(() => {
-            this.imprimirAparelhos(aparelhos);
-            this.imprimirLeituraAparelhos(aparelhos);
-            this.imprimirLeituraAparelhosCrescente(aparelhos);
-            this.encontrarMaiorDiferenca(aparelhos);
-        }, 3000);
+        try {
+            
+            await monitoramento.iniciarMonitoramento();
+            setTimeout(() => {
+                setInterval(async () => {
+                    const aparelhosCriptografados = await monitoramento.getAparelhos();
+        
+                    const aparelhosDescriptografados: any = [];
+                    for (let i = 0; i < aparelhosCriptografados.length; i++) {
+                        const aparelhoCriptografado = aparelhosCriptografados[i];
+                        const aparelhoDescriptografado = crypto.AES.decrypt(aparelhoCriptografado, monitoramento.getHash()).toString(crypto.enc.Utf8);
+                        aparelhosDescriptografados.push(JSON.parse(aparelhoDescriptografado));
+                    }
+
+                    this.imprimirAparelhos(aparelhosDescriptografados);
+                    this.imprimirLeituraAparelhos(aparelhosDescriptografados);
+                    this.imprimirLeituraAparelhosCrescente(aparelhosDescriptografados);
+                    this.encontrarMaiorDiferenca(aparelhosDescriptografados);
+                }, 2000);
+            }, 3000);
+
+        } catch (error) {
+            console.error('Erro:', error);
+        }
     }
 
     // MÉTODOS PARA IMPRIMIR OS VALORES LIDOS
