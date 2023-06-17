@@ -31,31 +31,7 @@ export class Monitoramento {
             const indiceAleatorio = Math.floor(Math.random() * eletrodomesticosData.length);
             const eletrodomestico = eletrodomesticosData[indiceAleatorio];
             const aparelho = new Aparelho(i, eletrodomestico.nome, eletrodomestico.tipo, eletrodomestico.potencia_min, eletrodomestico.potencia_max);
-
-            const gerarLeiturasWorker: Worker = new Worker(path.join(__dirname, '../utils/Worker.ts'));
-            gerarLeiturasWorker.on("message", (leituras: number[]) => {
-              aparelho.leituras = leituras;
-              for (let i = 0; i < leituras.length; i++) {
-                const leitura = leituras[i];
-                if (leitura > 0.99 * aparelho.potencia_max) {
-                  console.log(
-                    `🚨 GRAVE: Na leitura ${i + 1}, o aparelho ${aparelho.nome} demonstrou estar operando com a potencia de ${leitura}W que é mais de 99% da sua potência máxima (${aparelho.potencia_max}W)`
-                  );
-                }
-              }
-              console.log(`Leituras do aparelho ${aparelho.id} (${aparelho.nome}): [ ${leituras} ]\n`);
-            });
-
-            gerarLeiturasWorker.on("error", (error) => {
-              console.error(`Erro no worker thread do aparelho ${aparelho.nome}: ${error}`);
-            });
-
-            gerarLeiturasWorker.postMessage({
-              nome: aparelho.nome,
-              potencia_min: aparelho.potencia_min,
-              potencia_max: aparelho.potencia_max,
-            });
-
+            this.iniciarThread(aparelho)
             this.aparelhos.push(aparelho)
           }
 
@@ -64,6 +40,32 @@ export class Monitoramento {
         .catch((error) => {
           reject(error);
         });
+    });
+  }
+
+  iniciarThread(aparelho: Aparelho) {
+    const gerarLeiturasWorker: Worker = new Worker(path.join(__dirname, '../utils/Worker.ts'));
+    gerarLeiturasWorker.on("message", (leituras: number[]) => {
+      aparelho.leituras = leituras;
+      for (let i = 0; i < leituras.length; i++) {
+        const leitura = leituras[i];
+        if (leitura > 0.99 * aparelho.potencia_max) {
+          console.log(
+            `🚨 GRAVE: Na leitura ${i + 1}, o aparelho ${aparelho.nome} demonstrou estar operando com a potencia de ${leitura}W que é mais de 99% da sua potência máxima (${aparelho.potencia_max}W)`
+          );
+        }
+      }
+      console.log(`Leituras do aparelho ${aparelho.id} (${aparelho.nome}): [ ${leituras} ]\n`);
+    });
+
+    gerarLeiturasWorker.on("error", (error) => {
+      console.error(`Erro no worker thread do aparelho ${aparelho.nome}: ${error}`);
+    });
+
+    gerarLeiturasWorker.postMessage({
+      nome: aparelho.nome,
+      potencia_min: aparelho.potencia_min,
+      potencia_max: aparelho.potencia_max,
     });
   }
 
