@@ -4,62 +4,115 @@ import { Aparelho } from './AparelhoController';
 import path from 'path'
 import * as fs from 'fs';
 import crypto from "crypto-js"
+import { Worker } from "worker_threads";
 
 export class Monitoramento {
-  aparelhos: string[];
-  hash: string
+  numAparelhos: number
+  aparelhos: any[];
+  hash: string;
 
   constructor(numAparelhos: number) {
     this.aparelhos = [];
     this.hash = "";
+    this.numAparelhos = numAparelhos
+  }
 
-    // A variável eletrodomesticosData contém o array de objetos JSON simulando um banco de dados externo. 
-    const eletrodomesticosData: GetAparelhosResponse[] = data
+  iniciarMonitoramento(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      // Lê os bytes do áudio
+      this.lerBytesDeAudio(path.join(__dirname, '../assets/ventoinha-pc.mp3'))
+        .then((bytes: Buffer) => {
+          // Cria o hash baseado no array de bytes do áudio e salva em this.hash
+          this.gerarHash(bytes)
 
-    /**
-    * ##### Sobre:
-    * O trecho de código abaixo escolhe os aparelhos aleatoriamente e os instancia na classe Aparelho, 
-    * o número de aparelhos é baseado em 'numAparelhos', valor passado quando a classe é instanciada.
-    * Ante disso, o método utiliza a função auxiliar do tipo Promise 'lerBytesDeAudio' para obter o array de bytes de uma fonte de aleatoriedade real
-    * e com isso gera um 'hash' para criptografar esses objetos do tipo Aparelho antes de manda-los para a Main.
-    * 
-    * ##### Complexidade:
-    * A complexidade desse código é O(1), que indica que o tempo de execução não varia com o tamanho dos dados de entrada.
-    */
-    // Lê os bytes de um arquivo de áudio chamado "ventoinha-pc.mp3".
-    this.lerBytesDeAudio(path.join(__dirname, '../assets/ventoinha-pc.mp3'))
-      .then((bytes: Buffer) => {
-        // Converte os bytes em um array de números inteiros.
-        const byteArray = Array.from(bytes);
-        // Cria uma estrutura de dados do tipo "WordArray" a partir do array de bytes.
-        const wordArray = crypto.lib.WordArray.create(byteArray);
-        // Calcula o hash SHA256 da estrutura "WordArray".
-        const hash = crypto.SHA256(wordArray);
-        this.hash = hash.toString()
+          const eletrodomesticosData: GetAparelhosResponse[] = data;
 
-        for (let i = 1; i <= numAparelhos; i++) {
-          const indiceAleatorio = Math.floor(Math.random() * eletrodomesticosData.length);
-          const eletrodomestico = eletrodomesticosData[indiceAleatorio];
+          for (let i = 1; i <= this.numAparelhos; i++) {
+            const indiceAleatorio = Math.floor(Math.random() * eletrodomesticosData.length);
+            const eletrodomestico = eletrodomesticosData[indiceAleatorio];
+            const aparelho = new Aparelho(i, eletrodomestico.nome, eletrodomestico.tipo, eletrodomestico.potencia_min, eletrodomestico.potencia_max);
 
-          const aparelho = new Aparelho(i, eletrodomestico.nome, eletrodomestico.tipo, eletrodomestico.potencia_min, eletrodomestico.potencia_max)
-          // Criptografa o objeto "Aparelho" utilizando o algoritmo AES com a chave sendo o valor da variável "hash".
-          const aparelhoCriptografado = crypto.AES.encrypt(JSON.stringify(aparelho), this.hash).toString();
-          this.aparelhos.push(aparelhoCriptografado)
-        }
-      })
-      .catch((error) => {
-        console.error('Erro ao ler o arquivo de áudio: ', error);
-      });
+            const gerarLeiturasWorker: Worker = new Worker(path.join(__dirname, '../utils/Worker.ts'));
+            gerarLeiturasWorker.on("message", (leituras: number[]) => {
+              aparelho.leituras = leituras;
+              for (let i = 0; i < leituras.length; i++) {
+                const leitura = leituras[i];
+                if (leitura > 0.99 * aparelho.potencia_max) {
+                  console.log(
+                    `🚨 GRAVE: Na leitura ${i + 1}, o aparelho ${aparelho.nome} demonstrou estar operando com a potencia de ${leitura}W que é mais de 99% da sua potência máxima (${aparelho.potencia_max}W)`
+                  );
+                }
+              }
+              console.log(`Leituras do aparelho ${aparelho.id} (${aparelho.nome}): [ ${leituras} ]\n`);
+            });
 
+            gerarLeiturasWorker.on("error", (error) => {
+              console.error(`Erro no worker thread do aparelho ${aparelho.nome}: ${error}`);
+            });
 
+            gerarLeiturasWorker.postMessage({
+              nome: aparelho.nome,
+              potencia_min: aparelho.potencia_min,
+              potencia_max: aparelho.potencia_max,
+            });
+
+            this.aparelhos.push(aparelho)
+          }
+
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   }
 
   /**
   * ##### Sobre:
-  * Retorna o valor de this.hash
+  * Atribui um hash ao atributo hash da classe Monitoramento
   * 
   * ##### Complexidade:
-  * A complexidade da função é considerada O(1), pois não há loops ou iterações envolvidos
+  * A complexidade dessa função é O(n), onde 'n' é o número de elementos na matriz this.aparelhos. 
+  * 
+  */
+  gerarHash(bytes: Buffer) {
+    // Converte os bytes do parâmetro bytes em uma matriz de bytes
+    const byteArray = Array.from(bytes);
+    // Cria um objeto WordArray a partir da matriz de bytes utilizando o método lib.WordArray.create(byteArray) da biblioteca crypto-js
+    const wordArray = crypto.lib.WordArray.create(byteArray);
+    // Calcula o hash SHA256 do objeto WordArray utilizando o método crypto.SHA256(wordArray)
+    const hash = crypto.SHA256(wordArray);
+    this.hash = hash.toString();
+  }
+
+  /**
+  * ##### Sobre:
+  * Retorna um array de strings contendo os aparelhos criptografados.
+  * 
+  * ##### Complexidade:
+  * A complexidade dessa função é O(n), onde 'n' é o número de elementos na matriz this.aparelhos. 
+  * 
+  */
+  getAparelhos(): string[] {
+    const aparelhosCriptografados: string[] = []
+
+    for (let index = 0; index < this.aparelhos.length; index++) {
+      const aparelho = this.aparelhos[index];
+      // Criptografando o aparelho usando o algoritmo AES com a chave this.hash.
+      const aparelhoCriptografado = crypto.AES.encrypt(JSON.stringify(aparelho), this.hash).toString();
+      aparelhosCriptografados.push(aparelhoCriptografado);
+    }
+
+    return aparelhosCriptografados
+  }
+
+  /**
+  * ##### Sobre:
+  * Retorna o atributo string 'hash'
+  * 
+  * ##### Complexidade:
+  * Complexidade O(1), já que a função simplesmente retorna o valor da propriedade hash, 
+  * sem nenhuma iteração ou operação que dependa do tamanho dos dados
   */
   getHash(): string {
     return this.hash;
@@ -67,11 +120,12 @@ export class Monitoramento {
 
   /**
   * ##### Sobre:
-  * Recebe um caminho do sistema (path) e retorna os bytes de um arquivo de áudio.
+  * Utiliza a função fs.readFile para fazer chamada assíncrona que lê os bytes de um arquivo e 
+  * e retorna o resultado por meio de um callback
   * 
   * ##### Complexidade:
-  * A complexidade dessa função é de O(1). 
-  * Isso ocorre porque a função apenas utiliza a operação fs.readFile, que é uma operação assíncrona que não envolve nenhum loop ou iteração. 
+  * A complexidade desse código é O(1), pois independentemente do tamanho do arquivo de áudio, 
+  * a função em si não possui loops ou iterações que dependam do tamanho dos dados de entrada
   */
   lerBytesDeAudio(path: string): Promise<Buffer> {
     return new Promise<Buffer>((resolve, reject) => {
@@ -84,4 +138,5 @@ export class Monitoramento {
       });
     });
   }
+
 }
