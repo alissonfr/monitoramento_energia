@@ -126,18 +126,6 @@ export class Monitoramento {
 
   /**
   * ##### Sobre:
-  * Retorna o atributo string 'hash'
-  * 
-  * ##### Complexidade:
-  * Complexidade O(1), já que a função simplesmente retorna o valor da propriedade hash, 
-  * sem nenhuma iteração ou operação que dependa do tamanho dos dados
-  */
-  getHash(): string {
-    return this.hash;
-  }
-
-  /**
-  * ##### Sobre:
   * Utiliza a função fs.readFile para fazer chamada assíncrona que lê os bytes de um arquivo e 
   * e retorna o resultado por meio de um callback
   * 
@@ -155,6 +143,18 @@ export class Monitoramento {
         }
       });
     });
+  }
+  
+  /**
+  * ##### Sobre:
+  * Retorna o atributo string 'hash'
+  * 
+  * ##### Complexidade:
+  * Complexidade O(1), já que a função simplesmente retorna o valor da propriedade hash, 
+  * sem nenhuma iteração ou operação que dependa do tamanho dos dados
+  */
+  getHash(): string {
+    return this.hash;
   }
 
 }
