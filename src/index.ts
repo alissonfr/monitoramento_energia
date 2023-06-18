@@ -58,8 +58,7 @@ class Main {
     * do console, e portanto, a sua complexidade não depende do tamanho dos dados, 
     * 
     * ##### Complexidade:
-    * Por ser uma função simples que apenas imprime uma tabela de dados na saída 
-    * do console, sua complexidade não depende do tamanho dos dados.
+    * A complexidade da função é O(1) já que não á loops ou iterações.
     */
     private static imprimirAparelhos(aparelhos: Aparelho[]): void {
         console.log("(d.1) Lista de aparelhos monitorados:");
