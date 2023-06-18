@@ -1,6 +1,4 @@
 import { AparelhoModel } from "../models/AparelhoModel";
-import { Worker } from "worker_threads";
-import path from 'path'
 
 export class Aparelho implements AparelhoModel {
   id: number;
