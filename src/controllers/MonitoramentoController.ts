@@ -90,7 +90,8 @@ export class Monitoramento {
   * Atribui um hash ao atributo hash da classe Monitoramento
   * 
   * ##### Complexidade:
-  * A complexidade dessa função é O(n), onde 'n' é o número de elementos na matriz this.aparelhos. 
+  * A complexidade desse código é O(1), pois independentemente do tamanho dos bytes recebidos, 
+  * a função em si não possui loops ou iterações que dependam do tamanho dos dados de entrada
   * 
   */
   gerarHash(bytes: Buffer) {
